@@ -1,0 +1,58 @@
+
+def cython_lite_primes(nb_primes):
+    """
+    Clone of our pure python implementation, but
+    compiled with Cython.
+    Let's not add any Cython magic to this 'lite' version
+    so we can see what just Cython alone can do to vanilla Python.
+    """
+    found = [2]
+    found_length = 1
+    n = 3
+
+    while found_length < nb_primes:
+        is_prime = True
+        for f in found:
+            if n % f == 0:
+                is_prime = False
+                break
+
+        if is_prime:
+            found.append(n)
+            found_length += 1
+        n += 2
+
+    return found
+
+
+def cython_primes(int nb_primes):
+    """
+    Clone of our pure python implementation, but
+    compiled with Cython.
+    This time we actually try to optimize using Cython.
+    """
+    if nb_primes > 1000:
+        nb_primes = 1000
+    cdef int[1000] found
+    found[0] = 2;
+    cdef int found_length = 1
+    cdef int n = 3
+    cdef bint is_prime;
+    cdef int i
+
+    while found_length < nb_primes:
+        is_prime = True
+        i = 0
+        while i < found_length and is_prime:
+            f = found[i]
+            if n % f == 0:
+                is_prime = False
+                break
+            i += 1
+
+        if is_prime:
+            found[found_length] = n
+            found_length += 1
+        n += 2
+
+    return found

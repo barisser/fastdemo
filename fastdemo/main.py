@@ -2,11 +2,12 @@
 
 
 def python_primes(nb_primes):
+    """
+    Pure python and not very smart prime finder.
+    Yes, yes I know there are better algorithms.
+    This is a benchmark and that doesn't matter.
+    """
     found = [2]
-
-    if nb_primes > 10**4:
-        nb_primes = 10**4
-
     found_length = 1
     n = 3
 
@@ -15,6 +16,7 @@ def python_primes(nb_primes):
         for f in found:
             if n % f == 0:
                 is_prime = False
+                break
 
         if is_prime:
             found.append(n)

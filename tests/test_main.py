@@ -3,9 +3,17 @@ import time
 import fastdemo
 
 
-def test_primes():
+def benchmark_primes(func, n):
 	start = time.time()
-	primes1 = fastdemo.python_primes(3*10**3)
-	python_primes_time = time.time() - start
+	_ = func(n)
+	return time.time() - start
 
-	print("Pure Python time: {}".format(python_primes_time))
+
+def test_primes():
+	n_primes = 1000
+
+	funcs = [fastdemo.python_primes, fastdemo.cython_lite_primes, fastdemo.cython_primes]
+
+	for f in funcs:
+		t = benchmark_primes(f, n_primes)
+		print("Function {} took {} seconds.".format(f.__name__, t))

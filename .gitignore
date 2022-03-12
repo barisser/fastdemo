@@ -3,3 +3,6 @@ venv*
 *pycache*
 build*
 dist*
+fastdemo/*.html
+*.so
+fastdemo/kindafast.c

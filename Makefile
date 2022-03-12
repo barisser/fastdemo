@@ -7,7 +7,7 @@ venv:
 build: clean
 	python setup.py build_ext --inplace
 
-test:# venv
+test: build
 	python setup.py install && pytest -s -vvv --pdb tests
 
 publish:
