@@ -7,7 +7,7 @@ def cython_lite_primes(nb_primes):
     so we can see what just Cython alone can do to vanilla Python.
     """
     found = [2]
-    found_length = 1
+    found_length = 2
     n = 3
 
     while found_length < nb_primes:
@@ -22,7 +22,7 @@ def cython_lite_primes(nb_primes):
             found_length += 1
         n += 2
 
-    return found
+    return [1] + found
 
 
 def cython_primes(int nb_primes):
@@ -34,15 +34,16 @@ def cython_primes(int nb_primes):
     if nb_primes > 1000:
         nb_primes = 1000
     cdef int[1000] found
-    found[0] = 2;
-    cdef int found_length = 1
+    found[0] = 1
+    found[1] = 2
+    cdef int found_length = 2
     cdef int n = 3
     cdef bint is_prime;
     cdef int i
 
     while found_length < nb_primes:
         is_prime = True
-        i = 0
+        i = 1
         while i < found_length and is_prime:
             f = found[i]
             if n % f == 0:
