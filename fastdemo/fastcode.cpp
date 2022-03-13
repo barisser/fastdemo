@@ -73,32 +73,3 @@ static PyModuleDef fastcode_module = {
 PyMODINIT_FUNC PyInit_fastcode() {
 	return PyModule_Create(&fastcode_module);
 }
-
-/*
-
-
-def python_primes(nb_primes):
-    """
-    Pure python and not very smart prime finder.
-    Yes, yes I know there are better algorithms.
-    This is a benchmark and that doesn't matter.
-    """
-    found = [2]
-    found_length = 1
-    n = 3
-
-    while found_length < nb_primes:
-        is_prime = True
-        for f in found:
-            if n % f == 0:
-                is_prime = False
-                break
-
-        if is_prime:
-            found.append(n)
-            found_length += 1
-        n += 2
-
-    return found
-
-    */
