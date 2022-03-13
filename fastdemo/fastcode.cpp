@@ -2,7 +2,7 @@
 #include <vector>
 
 #define PY_SSIZE_T_CLEAN
-#include <Python/Python.h>
+#include "Python.h"
 
 // helpful resource https://github.com/microsoft/python-sample-vs-cpp-extension/blob/master/superfastcode/module.cpp
 
@@ -11,7 +11,9 @@ double square(double n) {
 }
 
 std::vector<int> primes(int n_primes) {
-	std::vector<int> primes = {1, 2};
+	std::vector<int> primes;
+	primes.push_back(1);
+	primes.push_back(2);
 	int found_length = 2;
 	int is_prime = 1;
 	int n = 3;
@@ -39,11 +41,23 @@ PyObject* fastsquare(PyObject *, PyObject* o) {
 	return PyFloat_FromDouble(square(value));
 }
 
+PyObject* fastprimes(PyObject *, PyObject* o) {
+	int intvalue = PyLong_AsLong(o);
+	std::vector<int> canswer = primes(intvalue);
+	PyObject* listObj = PyList_New(0);
+
+	for (int i=0;i<canswer.size();i++) {
+		PyObject* num = PyLong_FromLong(canswer[i]);
+		PyList_Append(listObj, num);
+	}
+	return listObj;
+}
+
 static struct PyMethodDef fastcode_methods[] = {
 	// The first property is the name exposed to Python, testfunc, the second is the C++
 	// function name that contains the implementation.
 	{ "fastsquare", (PyCFunction)fastsquare, METH_O, nullptr },
-
+	{ "fastprimes", (PyCFunction)fastprimes, METH_O, nullptr},
 	// Terminate the array with an object containing nulls.
 	{ nullptr, nullptr, 0, nullptr }
 };
