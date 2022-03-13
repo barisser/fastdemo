@@ -1,5 +1,6 @@
 import time
 
+import fastcode
 import fastdemo
 
 
@@ -10,10 +11,11 @@ def benchmark_primes(func, n):
 
 
 def test_primes():
-	n_primes = 1000
+	n_primes = 10000
 
 	funcs = [fastdemo.python_primes, fastdemo.cython_lite_primes, fastdemo.cython_primes]
 
 	for f in funcs:
 		t = benchmark_primes(f, n_primes)
 		print("Function {} took {} seconds.".format(f.__name__, t))
+

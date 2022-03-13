@@ -6,3 +6,4 @@ dist*
 fastdemo/*.html
 *.so
 fastdemo/kindafast.c
+*.out
