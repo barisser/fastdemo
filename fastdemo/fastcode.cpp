@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 
+#define PY_SSIZE_T_CLEAN
 #include <Python/Python.h>
 
 // helpful resource https://github.com/microsoft/python-sample-vs-cpp-extension/blob/master/superfastcode/module.cpp
@@ -38,7 +39,7 @@ PyObject* fastsquare(PyObject *, PyObject* o) {
 	return PyFloat_FromDouble(square(value));
 }
 
-static PyMethodDef fastcode_methods[] = {
+static struct PyMethodDef fastcode_methods[] = {
 	// The first property is the name exposed to Python, testfunc, the second is the C++
 	// function name that contains the implementation.
 	{ "fastsquare", (PyCFunction)fastsquare, METH_O, nullptr },
