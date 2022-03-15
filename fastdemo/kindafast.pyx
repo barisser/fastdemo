@@ -1,3 +1,5 @@
+#from cpython.mem cimport PyMem_Malloc, PyMem_Realloc, PyMem_Free
+from libc.stdlib cimport malloc, free
 
 def cython_lite_primes(nb_primes):
     """
@@ -16,6 +18,8 @@ def cython_lite_primes(nb_primes):
             if n % f == 0:
                 is_prime = False
                 break
+            if f*f > n:
+                break
 
         if is_prime:
             found.append(n)
@@ -31,14 +35,13 @@ def cython_primes(int nb_primes):
     compiled with Cython.
     This time we actually try to optimize using Cython.
     """
-    if nb_primes > 1000:
-        nb_primes = 1000
-    cdef int[1000] found
+    if nb_primes > 100000:
+        nb_primes = 100000
+    cdef int[100000] found
     found[0] = 1
     found[1] = 2
     cdef int found_length = 2
     cdef int n = 3
-    cdef bint is_prime;
     cdef int i
 
     while found_length < nb_primes:
@@ -49,11 +52,13 @@ def cython_primes(int nb_primes):
             if n % f == 0:
                 is_prime = False
                 break
+            if f*f > n:
+                break
             i += 1
 
         if is_prime:
             found[found_length] = n
-            found_length += 1
+            found_length = found_length + 1
         n += 2
 
     return found

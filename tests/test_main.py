@@ -11,7 +11,7 @@ def benchmark_primes(func, n):
 
 
 def test_primes():
-	n_primes = 10000
+	n_primes = 10**5
 
 	funcs = [fastdemo.python_primes, fastdemo.cython_lite_primes, fastdemo.cython_primes, fastcode.fastprimes]
 

@@ -20,9 +20,12 @@ std::vector<int> primes(int n_primes) {
 
 	while (found_length < n_primes) {
 		is_prime = 1;
-		for (int i=1;i<primes.size();i++) {
+		for (int i=1;i<found_length;i++) {
 			if (n % primes[i] == 0) {
 				is_prime = 0;
+				break;
+			}
+			if (primes[i] * primes[i] > n) {
 				break;
 			}
 		}

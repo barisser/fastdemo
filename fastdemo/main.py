@@ -17,6 +17,8 @@ def python_primes(nb_primes):
             if n % f == 0:
                 is_prime = False
                 break
+            if f*f > n:
+                break
 
         if is_prime:
             found.append(n)
